@@ -1,0 +1,42 @@
+const express = require('express');
+const cors    = require('cors');
+const helmet  = require('helmet');
+const path    = require('path');
+
+const app  = express();
+const PORT = process.env.PORT || 3000;
+
+// ── Middleware ──────────────────────────────────────────────────────────────
+app.use(cors());
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(express.json());
+
+// ── API routes ──────────────────────────────────────────────────────────────
+app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/evidence',  require('./routes/evidence'));
+app.use('/api/ops',       require('./routes/ops'));
+app.use('/api/system',    require('./routes/system'));
+app.use('/api/settings',  require('./routes/settings'));
+app.use('/api/auth',      require('./routes/auth'));
+
+// Quick status ping
+app.get('/api/status', (req, res) => {
+  res.json({
+    system:     'Sentinel-Black TacticalOps',
+    uptime:     process.uptime(),
+    encryption: 'active',
+    link:       'stable'
+  });
+});
+
+// ── Static frontend ─────────────────────────────────────────────────────────
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// ── Start ────────────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`Sentinel-Black Tactical Ops running on port ${PORT}`);
+});

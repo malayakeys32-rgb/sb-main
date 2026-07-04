@@ -1,0 +1,218 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #050608;
+  color: #f5f5f5;
+}
+
+/* ── App shell ── */
+.sb-app {
+  display: flex;
+  height: 100vh;
+}
+
+/* ── Sidebar ── */
+.sb-sidebar {
+  width: 260px;
+  background: #0b0c10;
+  border-right: 2px solid #ff8c00;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sb-logo {
+  width: 48px;
+  height: 48px;
+  border: 2px solid #ff8c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #ff8c00;
+}
+
+.sb-title {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffb347;
+}
+
+.sb-subtitle {
+  font-size: 0.8rem;
+  color: #ffd27f;
+}
+
+.sb-nav button {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #333;
+  color: #ffd27f;
+  padding: 8px 10px;
+  margin-top: 6px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.sb-nav button.active {
+  border-color: #ff8c00;
+  background: #1a1c22;
+}
+
+.sb-link-status {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: #ffd27f;
+}
+
+.sb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.sb-dot.online  { background: #39ff14; box-shadow: 0 0 6px #39ff14; }
+.sb-dot.offline { background: #ff3333; }
+
+/* ── Main area ── */
+.sb-main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* ── Panels ── */
+.sb-panel { display: none; flex-direction: column; gap: 16px; }
+.sb-panel.active { display: flex; }
+
+.sb-row {
+  display: flex;
+  gap: 16px;
+}
+
+/* ── Cards ── */
+.sb-card {
+  flex: 1;
+  background: #101218;
+  border: 1px solid #ff8c00;
+  box-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+  padding: 16px;
+}
+
+.sb-card h2 {
+  margin-top: 0;
+  color: #ffb347;
+}
+
+.sb-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sb-card li {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 140, 0, 0.12);
+  font-size: 0.9rem;
+}
+
+.sb-card li:last-child { border-bottom: none; }
+
+.sb-card p {
+  font-size: 0.9rem;
+  margin: 6px 0;
+}
+
+/* ── Waveform ── */
+.waveform {
+  margin-top: 12px;
+  height: 60px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 140, 0, 0.1),
+    rgba(255, 215, 0, 0.3)
+  );
+}
+
+/* ── Map ── */
+.map-placeholder {
+  height: 160px;
+  background: radial-gradient(circle at center, #ff8c00 0, #050608 60%);
+  border: 1px solid #ffb347;
+}
+
+/* ── Evidence list ── */
+.sb-evidence-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sb-view-btn {
+  background: transparent;
+  border: 1px solid #ff8c00;
+  color: #ffb347;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sb-view-btn:hover { background: rgba(255, 140, 0, 0.15); }
+
+/* ── Login form ── */
+.sb-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sb-login input {
+  background: #0b0c10;
+  border: 1px solid #ff8c00;
+  color: #ffd27f;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.sb-login button {
+  background: rgba(255, 140, 0, 0.15);
+  border: 1px solid #ff8c00;
+  color: #ffb347;
+  padding: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.sb-login button:hover { background: rgba(255, 140, 0, 0.3); }
+
+#loginResult {
+  font-size: 0.8rem;
+  margin: 0;
+  min-height: 1.2em;
+}
+
+/* ── Footer ── */
+.sb-footer {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: #ffd27f;
+  border-top: 1px solid #333;
+  padding-top: 8px;
+}

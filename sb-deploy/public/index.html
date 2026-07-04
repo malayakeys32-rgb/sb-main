@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sentinel-Black Tactical Ops</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="sb-app">
+
+    <!-- SIDEBAR -->
+    <aside class="sb-sidebar">
+      <div class="sb-logo">SB</div>
+      <div class="sb-title">SENTINEL-BLACK</div>
+      <div class="sb-subtitle">TACTICAL OPS DASHBOARD</div>
+
+      <nav class="sb-nav">
+        <button class="active" data-panel="dashboard">Dashboard</button>
+        <button data-panel="evidence">Evidence Hub</button>
+        <button data-panel="ops">Ops Command</button>
+        <button data-panel="system">System Health</button>
+        <button data-panel="settings">Settings</button>
+      </nav>
+
+      <!-- live status indicator -->
+      <div class="sb-link-status">
+        <span class="sb-dot" id="linkDot"></span>
+        <span id="linkLabel">Connecting…</span>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="sb-main">
+
+      <!-- ── DASHBOARD PANEL ── -->
+      <div id="panel-dashboard" class="sb-panel active">
+
+        <!-- TOP ROW -->
+        <section class="sb-row">
+          <div class="sb-card" id="system-status">
+            <h2>System Status</h2>
+            <ul>
+              <li>Systems Online: <span id="systemsOnline">—</span></li>
+              <li>Active Alerts: <span id="activeAlerts">—</span></li>
+              <li>Operatives Deployed: <span id="operativesDeployed">—</span></li>
+            </ul>
+          </div>
+
+          <div class="sb-card" id="mission-ops">
+            <h2>Mission Operations</h2>
+            <p>Current Op: <span id="currentOp">—</span></p>
+            <p>Threat Level: <span id="threatLevel">—</span></p>
+            <div class="waveform" id="waveform"></div>
+          </div>
+        </section>
+
+        <!-- BOTTOM ROW -->
+        <section class="sb-row">
+          <div class="sb-card" id="recent-activity">
+            <h2>Recent Activity</h2>
+            <ul id="activityList"></ul>
+          </div>
+
+          <div class="sb-card" id="intel-map">
+            <h2>Intel Map</h2>
+            <div class="map-placeholder"></div>
+          </div>
+        </section>
+
+      </div><!-- /dashboard -->
+
+      <!-- ── EVIDENCE PANEL ── -->
+      <div id="panel-evidence" class="sb-panel">
+        <section class="sb-row">
+          <div class="sb-card">
+            <h2>Evidence Hub</h2>
+            <ul id="evidenceList" class="sb-evidence-list"></ul>
+          </div>
+          <div class="sb-card">
+            <h2>Case Summary</h2>
+            <ul>
+              <li>Total Cases: <span id="totalCases">—</span></li>
+              <li>Pending Review: <span id="pendingReview">—</span></li>
+              <li>Archived: <span id="archived">—</span></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- ── OPS PANEL ── -->
+      <div id="panel-ops" class="sb-panel">
+        <section class="sb-row">
+          <div class="sb-card">
+            <h2>Ops Command</h2>
+            <ul id="opsList"></ul>
+          </div>
+          <div class="sb-card">
+            <h2>Op Summary</h2>
+            <ul>
+              <li>Active Ops: <span id="activeOps">—</span></li>
+              <li>Completed Ops: <span id="completedOps">—</span></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- ── SYSTEM PANEL ── -->
+      <div id="panel-system" class="sb-panel">
+        <section class="sb-row">
+          <div class="sb-card">
+            <h2>System Health</h2>
+            <ul>
+              <li>CPU Load: <span id="cpuLoad">—</span></li>
+              <li>Memory: <span id="memoryUsage">—</span></li>
+              <li>Network: <span id="networkStatus">—</span></li>
+              <li>Uptime: <span id="sysUptime">—</span></li>
+            </ul>
+          </div>
+          <div class="sb-card">
+            <h2>Services</h2>
+            <ul id="servicesList"></ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- ── SETTINGS PANEL ── -->
+      <div id="panel-settings" class="sb-panel">
+        <section class="sb-row">
+          <div class="sb-card">
+            <h2>Settings</h2>
+            <ul>
+              <li>Notifications: <span id="settingNotifications">—</span></li>
+              <li>Two-Factor Auth: <span id="settingTwoFactor">—</span></li>
+              <li>Theme: <span id="settingTheme">—</span></li>
+              <li>Access Level: <span id="settingAccess">—</span></li>
+            </ul>
+          </div>
+          <div class="sb-card">
+            <h2>Secure Login</h2>
+            <div class="sb-login">
+              <input id="loginUser" placeholder="Username" type="text" />
+              <input id="loginPass" placeholder="Password" type="password" />
+              <button id="loginBtn">Authenticate</button>
+              <p id="loginResult"></p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="sb-footer">
+        Sentinel-Black Tactical Ops System — v1.0 · Secure Link Established
+      </footer>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
