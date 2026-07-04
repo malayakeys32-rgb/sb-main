@@ -1,42 +1,38 @@
-const express = require('express');
-const cors    = require('cors');
-const helmet  = require('helmet');
-const path    = require('path');
+const express = require("express");
+const path = require("path");
+require("dotenv").config();
 
-const app  = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ── Middleware ──────────────────────────────────────────────────────────────
-app.use(cors());
-app.use(helmet({ contentSecurityPolicy: false }));
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// ── API routes ──────────────────────────────────────────────────────────────
-app.use('/api/dashboard', require('./routes/dashboard'));
-app.use('/api/evidence',  require('./routes/evidence'));
-app.use('/api/ops',       require('./routes/ops'));
-app.use('/api/system',    require('./routes/system'));
-app.use('/api/settings',  require('./routes/settings'));
-app.use('/api/auth',      require('./routes/auth'));
+// Serve static frontend
+app.use(express.static(path.join(__dirname, "public")));
 
-// Quick status ping
-app.get('/api/status', (req, res) => {
-  res.json({
-    system:     'Sentinel-Black TacticalOps',
-    uptime:     process.uptime(),
-    encryption: 'active',
-    link:       'stable'
-  });
+// Routes
+const authRoutes = require("./routes/auth");
+const dashboardRoutes = require("./routes/dashboard");
+const evidenceRoutes = require("./routes/evidence");
+const opsRoutes = require("./routes/ops");
+const settingsRoutes = require("./routes/settings");
+const systemRoutes = require("./routes/system");
+
+app.use("/auth", authRoutes);
+app.use("/dashboard", dashboardRoutes);
+app.use("/evidence", evidenceRoutes);
+app.use("/ops", opsRoutes);
+app.use("/settings", settingsRoutes);
+app.use("/system", systemRoutes);
+
+// Default route (homepage)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ── Static frontend ─────────────────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// ── Start ────────────────────────────────────────────────────────────────────
+// Start server
 app.listen(PORT, () => {
-  console.log(`Sentinel-Black Tactical Ops running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
