@@ -1,3 +1,4 @@
+const API_BASE = "https://sb-main-back.onrender.com";
 /* ── Nav switching ───────────────────────────────────────────────────────── */
 document.querySelectorAll('.sb-nav button').forEach(btn => {
   btn.addEventListener('click', () => {
