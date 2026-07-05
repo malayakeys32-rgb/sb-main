@@ -20,11 +20,21 @@ const opsRoutes = require("./routes/ops");
 const settingsRoutes = require("./routes/settings");
 const systemRoutes = require("./routes/system");
 
+app.get("/api/status", (req, res) => {
+  res.json({ ok: true, service: "sentinel-black" });
+});
+
+app.use("/api/auth", authRoutes);
 app.use("/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/api/evidence", evidenceRoutes);
 app.use("/evidence", evidenceRoutes);
+app.use("/api/ops", opsRoutes);
 app.use("/ops", opsRoutes);
+app.use("/api/settings", settingsRoutes);
 app.use("/settings", settingsRoutes);
+app.use("/api/system", systemRoutes);
 app.use("/system", systemRoutes);
 
 // Default route (homepage)
