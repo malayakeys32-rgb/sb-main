@@ -67,7 +67,7 @@ fetch('/api/dashboard')
   });
 
 /* ── Evidence ────────────────────────────────────────────────────────────── */
-fetch('/api/evidence')
+fetch(`${API_BASE}/api/evidence`)
   .then(r => r.json())
   .then(d => {
     document.getElementById('totalCases').textContent    = d.totalCases;
@@ -85,7 +85,7 @@ fetch('/api/evidence')
   });
 
 /* ── Ops ─────────────────────────────────────────────────────────────────── */
-fetch('/api/ops')
+fetch(`${API_BASE}/api/ops`)
   .then(r => r.json())
   .then(d => {
     document.getElementById('activeOps').textContent    = d.activeOps;
@@ -100,7 +100,7 @@ fetch('/api/ops')
   });
 
 /* ── System health ───────────────────────────────────────────────────────── */
-fetch('/api/system')
+fetch(`${API_BASE}/api/system`)
   .then(r => r.json())
   .then(d => {
     document.getElementById('cpuLoad').textContent      = d.cpuLoad;
