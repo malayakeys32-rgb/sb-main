@@ -26,7 +26,8 @@ app.get("/api/status", (req, res) => {
 });
 
 // API routes only
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", require("./routes/auth"));ffont end calls it
+
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/evidence", evidenceRoutes);
 app.use("/api/ops", opsRoutes);
