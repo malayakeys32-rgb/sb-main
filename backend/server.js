@@ -1,7 +1,5 @@
 const { loadEnv } = require("./config/env");
 loadEnv();
-const { loadEnv } = require("./config/env");
-loadEnv();
 const express = require("express");
 const cors = require("cors");
 const { loadEnv } = require("./config/env");
