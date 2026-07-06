@@ -1,0 +1,11 @@
+{
+  "name": "sb-main",
+  "private": true,
+  "scripts": {
+    "backend:start": "cd backend && npm start",
+    "frontend:start": "cd frontend && npm start",
+    "start": "npm run backend:start",
+    "build": "cd frontend && npm run build",
+    "dev": "cd backend && npm run dev"
+  }
+}
