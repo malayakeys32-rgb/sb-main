@@ -1,9 +1,13 @@
-const { loadEnv } = require("./config/env");
-loadEnv();
 const express = require("express");
 const cors = require("cors");
+
+// Load environment variables
 const { loadEnv } = require("./config/env");
-const authMiddleware = require("./middleware/auth");
+loadEnv();
+
+// Optional: database + jwt config if you added them
+// const { initializeConfig } = require("./config");
+// initializeConfig();
 
 // Routes
 const authRoutes = require("./routes/auth");
@@ -13,7 +17,8 @@ const opsRoutes = require("./routes/ops");
 const settingsRoutes = require("./routes/settings");
 const systemRoutes = require("./routes/system");
 
-loadEnv();
+// Middleware
+const authMiddleware = require("./middleware/auth");
 
 const app = express();
 app.use(cors());
@@ -35,7 +40,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Sentinel Black backend running" });
 });
 
-// Server start
+// Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);
