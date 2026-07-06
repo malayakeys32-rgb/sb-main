@@ -1,22 +1,40 @@
 const express = require("express");
-require("dotenv").config();
+const cors = require("cors");
+const { loadEnv } = require("./config/env");
+const authMiddleware = require("./middleware/auth");
+
+// Routes
+const authRoutes = require("./routes/auth");
+const dashboardRoutes = require("./routes/dashboard");
+const evidenceRoutes = require("./routes/evidence");
+const opsRoutes = require("./routes/ops");
+const settingsRoutes = require("./routes/settings");
+const systemRoutes = require("./routes/system");
+
+loadEnv();
 
 const app = express();
-const PORT = process.env.PORT || 10000;
-
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// root
+// Global auth middleware (optional)
+app.use(authMiddleware);
+
+// Route mounting
+app.use("/auth", authRoutes);
+app.use("/dashboard", dashboardRoutes);
+app.use("/evidence", evidenceRoutes);
+app.use("/ops", opsRoutes);
+app.use("/settings", settingsRoutes);
+app.use("/system", systemRoutes);
+
+// Health check
 app.get("/", (req, res) => {
-  res.json({ ok: true, message: "Sentinel-Black Backend Online" });
+  res.json({ message: "Sentinel Black backend running" });
 });
 
-// auth routes
-app.use("/api/auth", require("./routes/auth"));
-
-// (other routes: dashboard, ops, etc.)
-
+// Server start
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Sentinel‑Black backend running on port ${PORT}`);
+  console.log(`Backend running on port ${PORT}`);
 });
