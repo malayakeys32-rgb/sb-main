@@ -1,0 +1,11 @@
+{
+  "name": "sb-main",
+  "private": true,
+  "scripts": {
+    "backend:start": "cd backend && npm start",
+    "frontend:start": "sh -c 'if [ -f frontend/package.json ]; then cd frontend && npm start; elif [ -f frontend/build/app.js ]; then node frontend/build/app.js; else echo \"No frontend to start\"; fi'",
+    "start": "npm run backend:start",
+    "build": "sh -c 'if [ -f frontend/package.json ]; then cd frontend && npm run build; else echo \"No frontend package.json, skipping build\"; fi'",
+    "dev": "cd backend && npm run dev"
+  }
+}
