@@ -1,47 +1,32 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import { connectDB } from "./config/db.js";
+import { logger } from "./middleware/loggerMiddleware.js";
+import { errorHandler } from "./middleware/errorMiddleware.js";
 
-// Load environment variables
-const { loadEnv } = require("./config/env");
-loadEnv();
+import authRoutes from "./routes/authRoutes.js";
+import caseRoutes from "./routes/caseRoutes.js";
+import orgRoutes from "./routes/orgRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
-// Optional: database + jwt config if you added them
-// const { initializeConfig } = require("./config");
-// initializeConfig();
-
-// Routes
-const authRoutes = require("./routes/auth");
-const dashboardRoutes = require("./routes/dashboard");
-const evidenceRoutes = require("./routes/evidence");
-const opsRoutes = require("./routes/ops");
-const settingsRoutes = require("./routes/settings");
-const systemRoutes = require("./routes/system");
-
-// Middleware
-const authMiddleware = require("./middleware/auth");
-
+dotenv.config();
 const app = express();
-app.use(cors());
+
+connectDB();
+
+app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(express.json());
+app.use(morgan("dev"));
+app.use(logger);
 
-// Global auth middleware (optional)
-app.use(authMiddleware);
-
-// Route mounting
 app.use("/auth", authRoutes);
-app.use("/dashboard", dashboardRoutes);
-app.use("/evidence", evidenceRoutes);
-app.use("/ops", opsRoutes);
-app.use("/settings", settingsRoutes);
-app.use("/system", systemRoutes);
+app.use("/cases", caseRoutes);
+app.use("/org", orgRoutes);
+app.use("/admin", adminRoutes);
 
-// Health check
-app.get("/", (req, res) => {
-  res.json({ message: "Sentinel Black backend running" });
-});
+app.use(errorHandler);
 
-// Start server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
-});
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
