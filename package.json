@@ -7,5 +7,8 @@
     "start": "npm run backend:start",
     "build": "sh -c 'if [ -f frontend/package.json ]; then cd frontend && npm run build; else echo \"No frontend package.json, skipping build\"; fi'",
     "dev": "cd backend && npm run dev"
+  },
+  "dependencies": {
+    "morgan": "^1.11.0"
   }
 }
