@@ -17,6 +17,10 @@ export const protect = async (req, res, next) => {
     next();
   } catch (err) {
     return res.status(401).json({ success: false, message: "Token invalid" });
-  }
+
+    export const logger = (req, res, next) => {
+    console.log(`➡ ${req.method} ${req.originalUrl}`);
+    next();
 };
+
 
