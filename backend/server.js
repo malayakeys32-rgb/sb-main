@@ -1,34 +1,56 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import morgan from "morgan";
+// ===============================
+// Sentinel-Black Backend Server
+// ===============================
 
-import { connectDB } from "./config/db.js";
-import { logger } from "./middleware/loggerMiddleware.js";
-import { errorHandler } from "./middleware/errorMiddleware.js";
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
-import authRoutes from "./routes/authRoutes.js";
-import caseRoutes from "./routes/caseRoutes.js";
-import orgRoutes from "./routes/orgRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
-
-dotenv.config();
+// -------------------------------
+// App Setup
+// -------------------------------
 const app = express();
-
-connectDB();
-
-app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(express.json());
-app.use(morgan("dev"));
-app.use(logger);
 
-app.use("/auth", authRoutes);
-app.use("/cases", caseRoutes);
-app.use("/org", orgRoutes);
-app.use("/admin", adminRoutes);
+// SAFE CORS (no crashes)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-app.use(errorHandler);
+// -------------------------------
+// MongoDB Connection
+// -------------------------------
+const MONGO_URI = process.env.MONGO_URI;
 
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log("Connected to MongoDB");
+})
+.catch((err) => {
+  console.error("MongoDB connection error:", err.message);
+});
+
+// -------------------------------
+// Test Route
+// -------------------------------
+app.get("/", (req, res) => {
+  res.json({
+    status: "online",
+    message: "Sentinel-Black Tactical Ops Backend Running"
+  });
+});
+
+// -------------------------------
+// Start Server
+// -------------------------------
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
+
 
