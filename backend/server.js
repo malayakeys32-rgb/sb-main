@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
+
 import { connectDB } from "./config/db.js";
 import { logger } from "./middleware/loggerMiddleware.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
@@ -30,3 +31,4 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
+
